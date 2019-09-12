@@ -9,7 +9,7 @@ let personArr = [];
     this.startDate = date1;
     this.endDate = date2;
     this.project = project;
-    
+
     this.compare = function (otherObj) {
         return this.emp1 === otherObj.emp1 && this.emp2 === otherObj.emp2;
     }
@@ -31,6 +31,7 @@ let personArr = [];
 if (window.XMLHttpRequest){
 	txtFile = new XMLHttpRequest();
  };
+ 
 let openFile = function(event) {		
     let input = event.target;
 	let reader = new FileReader();
