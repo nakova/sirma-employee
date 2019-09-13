@@ -9,7 +9,6 @@ let personArr = [];
     this.startDate = date1;
     this.endDate = date2;
     this.project = project;
-
     this.compare = function (otherObj) {
         return this.emp1 === otherObj.emp1 && this.emp2 === otherObj.emp2;
     }
@@ -17,7 +16,8 @@ let personArr = [];
     this.timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime()); 
     // days difference
     this.diffDays =  Math.ceil(this.timeDiff / (1000 * 3600 * 24)); 
-    if(this.startDate.getTime() == this.endDate.getTime()){
+
+    if (this.startDate.getTime() == this.endDate.getTime()) {
       this.diffDays = 1;
     };
     this.printObject = function () {
@@ -26,59 +26,67 @@ let personArr = [];
     //console.log(this.diffDays);
     }
 }
-
 // read txt file logic
-if (window.XMLHttpRequest){
+if (window.XMLHttpRequest) {
 	txtFile = new XMLHttpRequest();
  };
- 
 let openFile = function(event) {		
     let input = event.target;
 	let reader = new FileReader();
     reader.onload = function() {
         let text = reader.result;
         let lines = text.split('\r\n'); // values in lines[0], lines[1]...
-		for(let i = 0; i < lines.length; i++){
+		for (let i = 0; i < lines.length; i++) {
             lineLoop = lines[i];
             let str = lineLoop.replace(/\s/g,'');
             txtArr.push(str.split(','));
-        };
-        currVal = 0;
+        };   
         //console.log(txtArr);
-        for(let i = 0; i < txtArr.length; i++){
+        for (let i = 0; i < txtArr.length; i++) {
         // create new Object of type employeesObj
-           let empl1 = txtArr[i][currVal];
-           let empl2 = txtArr[i][currVal + 1];
-           let project = txtArr[i][currVal + 2];
-           let dateFrom = txtArr[i][currVal + 3];
+           let empl1 = txtArr[i][0];
+           let empl2 = txtArr[i][1];
+           let project = txtArr[i][2];
+           let dateFrom = txtArr[i][3];
            let startDate = new Date(dateFrom);
-           let dateTo = txtArr[i][currVal + 4];
+           let dateTo = txtArr[i][4];
            let endDate = new Date(dateTo);
            let today = new Date();
-           let oneDay = 1;
             if(dateTo == "null") {
                 endDate = today;
             };
-            try {
-              if(endDate > startDate);
-            } catch(err) {
-              alert("The start Date should be smaller that end Date. Please insert correct data")
+          let errLogs = [];
+          try {
+            if (startDate <= endDate) {
+            console.log("Data pass the test");
+            }else{
+              throw new TypeError("The startDate should be smaller than endDate! Please correct the file and try again!");
             }
+          } catch (err) {
+            alert("Please, insert correct date, if you want correct calculation");
+            errLogs.push(err);
+          }
+          console.log(errLogs);
           let obj = new eployeesObj(empl1, empl2, startDate, endDate, project);
           obj.printObject();  
           personArr.push(obj);
         };
-    console.log(personArr);
-let result = Object.values(personArr.reduce(function(r, e) {
-  let key = e.emp1 + '|' + e.emp2;
-    if (!r[key]){
-      r[key] = e;
+        personArr.forEach(el => {
+          if (el.emp1 > el.emp2) {
+              [el.emp1, el.emp2] = [el.emp2, el.emp1];
+          }
+      });
+      //console.log(personArr);
+let result = Object.values(personArr.reduce(function(res, currval) {
+  let key = currval.emp1 + '|' + currval.emp2;
+    if (!res[key]){
+      res[key] = currval;
     } else {
-    r[key].diffDays += e.diffDays;
+    res[key].diffDays += currval.diffDays;
     }
-      return r;
+      return res;
 }, {})) 
- console.log(result)
+console.log(result);
     result.sort((a, b) => (a.diffDays < b.diffDays) ? 1 : -1);
     // alert("Emoloyee id: " + result[0].emp1 + " and Employee id: " + result[0].emp2 + " worked together " + result[0].diffDays + " days.");
      
