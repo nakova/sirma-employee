@@ -1,7 +1,7 @@
 let txtArr =[];
 let txtFile, lineLoop;
 let personArr = [];
-
+let errLogs = [];
  // object that represents a line from text file
  function eployeesObj(emp1, emp2, date1, date2, project) {
     this.emp1 = emp1;
@@ -50,12 +50,14 @@ let openFile = function(event) {
            let dateFrom = txtArr[i][3];
            let startDate = new Date(dateFrom);
            let dateTo = txtArr[i][4];
-           let endDate = new Date(dateTo);
            let today = new Date();
-            if(dateTo == "null") {
-                endDate = today;
-            };
-          let errLogs = [];
+           if(dateTo === "null") {
+            dateTo = today;
+          };
+          let endDate = new Date(dateTo);
+          if (startDate.toString() === "Invalid Date"||endDate.toString() === "Invalid Date" ){
+            alert("The Date is not correct");
+          };
           try {
             if (startDate <= endDate) {
             console.log("Data pass the test");
@@ -63,10 +65,9 @@ let openFile = function(event) {
               throw new TypeError("The startDate should be smaller than endDate! Please correct the file and try again!");
             }
           } catch (err) {
-            alert("Please, insert correct date, if you want correct calculation");
+            document.getElementById("wrong-date").innerHTML = "Please, insert correct date, if you want correct calculation!The startDate should be smaller than endDate! Please correct the file and try again!";
             errLogs.push(err);
           }
-          console.log(errLogs);
           let obj = new eployeesObj(empl1, empl2, startDate, endDate, project);
           obj.printObject();  
           personArr.push(obj);
@@ -89,8 +90,7 @@ let result = Object.values(personArr.reduce(function(res, currval) {
 console.log(result);
     result.sort((a, b) => (a.diffDays < b.diffDays) ? 1 : -1);
     // alert("Emoloyee id: " + result[0].emp1 + " and Employee id: " + result[0].emp2 + " worked together " + result[0].diffDays + " days.");
-     
-    let output = "Emoloyee id: " + result[0].emp1 + " and Employee id: " + result[0].emp2 + " worked together " + result[0].diffDays + " days.";
+    let output = "Employee id: " + result[0].emp1 + " and Employee id: " + result[0].emp2 + " worked together " + result[0].diffDays + " days.";
     document.getElementById("show-calculation").innerHTML = output;
     }  
     reader.readAsText(input.files[0]);
