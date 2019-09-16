@@ -57,6 +57,8 @@ let openFile = function(event) {
           let endDate = new Date(dateTo);
           if (startDate.toString() === "Invalid Date"||endDate.toString() === "Invalid Date" ){
             alert("The Date is not correct");
+            document.getElementById("wrong-date").innerHTML = "You have a mistake in row: " +txtArr[i];
+            break;
           };
           try {
             if (startDate <= endDate) {
@@ -65,9 +67,11 @@ let openFile = function(event) {
               throw new TypeError("The startDate should be smaller than endDate! Please correct the file and try again!");
             }
           } catch (err) {
-            document.getElementById("wrong-date").innerHTML = "Please, insert correct date, if you want correct calculation!The startDate should be smaller than endDate! Please correct the file and try again!";
+            document.getElementById("wrong-date").innerHTML = "Please, insert correct date, if you want correct calculation!The startDate should be smaller than endDate! Please correct the file and try again! You can find your mistake on row:" + txtArr[i];
             errLogs.push(err);
+            break;
           }
+          console.log(errLogs)
           let obj = new eployeesObj(empl1, empl2, startDate, endDate, project);
           obj.printObject();  
           personArr.push(obj);
