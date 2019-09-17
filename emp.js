@@ -58,12 +58,12 @@ let openFile = function (event) {
       let endDate = new Date(dateTo);
 
       if (startDate.toString() === "Invalid Date" || endDate.toString() === "Invalid Date") {
-        errLogs.push(txtArr[i]);
+        errLogs.push(i);
         continue;
       }
 
       if (startDate > endDate) {
-        errLogs.push(txtArr[i]);
+        errLogs.push(i);
         continue;
       }
       let obj = new EployeesObj(empl1, empl2, startDate, endDate, project);
@@ -72,7 +72,7 @@ let openFile = function (event) {
     }
 
     if (errLogs.length !== 0) {
-      document.getElementById("wrong-date1").innerHTML = " You have a wrond data in rows: " + errLogs;
+      document.getElementById("wrong-date").innerHTML = " You have a wrong data in rows: " + errLogs + " Please, correct it and upload the file again.";
     }
 
     personArr.forEach(el => {

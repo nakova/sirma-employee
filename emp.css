@@ -1,0 +1,30 @@
+
+    #header {
+        background: url("https://i.pinimg.com/originals/6d/8f/ed/6d8fed3b7c6dae77f9c415077bcf5233.jpg") center center / cover no-repeat;
+        color : white;
+    }
+    body {
+        font-family: 'Raleway', sans-serif;
+        background: url("https://www.ilovewallpaper.co.uk/images/prosecco-sparkle-marble-wallpaper-grey-silver-p4766-12929_image.jpg");
+    }
+    #show-calculation {
+        color: red;
+        font-size: 40px;
+        text-shadow:2px 2px #080808f3;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    #wrong-date {
+        font-style: italic;
+        color: red;
+    }
+    i {
+        color : red;
+    }
+    .lowerFont {
+        font-size: 25px;
+        color : red;
+    }
+   nav {
+    background-color: #838a89f3;
+   }    
