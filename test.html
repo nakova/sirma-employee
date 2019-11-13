@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>JavaScript Objects</h2>
+
+<p id="demo"></p>
+
+<script>
+// Constructor function 
+
+function myObj(emp1, emp2, date1, date2, project) {
+    this.emp1 = emp1;
+    this.emp2 = emp2;
+	this.date = date1;
+	this.date2 = date2;
+    this.project = project;
+   
+    this.days = getDays();
+   
+    this.compare = function (otherObj) {
+        return this.emp1 === otherObj.emp1 && this.emp2 === otherObj.emp2 && this.project === otherObj.project;
+    }
+	this.getDeys = function{ 
+	// calculation days logic here
+	}
+}
+
+var obj1 = new myObj('Slavy', 'Villy', 2, 'Test Prj');
+var obj2 = new myObj('Slavy', 'Villy', 3, 'Test Prj');
+
+
+if (obj1.compare(obj2)) {
+    console.log(obj1.days + obj2.days);
+} else {
+    console.log('The objects are not equalse!');
+}
+
+
+</script>
+
+</body>
+</html>
